@@ -1,0 +1,14 @@
+{
+  "name": "Rupivo – Money Tracker",
+  "short_name": "Rupivo",
+  "description": "Private, offline money tracker for cash, UPI and people.",
+  "start_url": "index.html#/dashboard",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#4338ca",
+  "icons": [
+    { "src": "assets/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

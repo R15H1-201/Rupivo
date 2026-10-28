@@ -1,0 +1,61 @@
+# Builds an installable Android APK every time you push to GitHub.
+# Download it from: repo -> Actions -> latest run -> "Artifacts" -> rupivo-apk
+name: Build Android APK
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: {}
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+
+      - name: Install dependencies
+        run: npm install --omit=dev
+
+      - name: Run logic tests
+        run: node tests/logic.test.js
+
+      - name: Create Android project
+        run: npx cap add android
+
+      - name: Add SMS plugin, register it, add permission
+        run: |
+          PKG_DIR=android/app/src/main/java/com/rupivo/app
+          cp native/android/SmsInboxPlugin.java "$PKG_DIR/"
+          cat > "$PKG_DIR/MainActivity.java" <<'JAVA'
+          package com.rupivo.app;
+
+          import android.os.Bundle;
+          import com.getcapacitor.BridgeActivity;
+
+          public class MainActivity extends BridgeActivity {
+              @Override
+              public void onCreate(Bundle savedInstanceState) {
+                  registerPlugin(SmsInboxPlugin.class);
+                  super.onCreate(savedInstanceState);
+              }
+          }
+          JAVA
+          sed -i 's|<application|<uses-permission android:name="android.permission.READ_SMS" />\n    <application|' android/app/src/main/AndroidManifest.xml
+
+      - name: Sync web files into the app
+        run: npx cap sync android
+
+      - name: Build debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: rupivo-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

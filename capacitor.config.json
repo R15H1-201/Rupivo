@@ -1,0 +1,6 @@
+{
+  "appId": "com.rupivo.app",
+  "appName": "Rupivo",
+  "webDir": "www",
+  "server": { "androidScheme": "https" }
+}

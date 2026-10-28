@@ -1,0 +1,20 @@
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch(); const p = await (await b.newContext()).newPage();
+  const errs = []; p.on('pageerror', e => errs.push(e.message));
+  await p.goto('http://localhost:8765/index.html');
+  await p.fill('input[name=pass]', 'secret123'); await p.fill('input[name=pass2]', 'secret123');
+  await p.click('.lock-card [type=submit]'); await p.waitForSelector('.hero-v');
+  await p.click('#fab'); await p.click('.fab-item[data-type=income]');
+  await p.fill('input[name=amount]', '5000'); await p.fill('input[name=note]', 'TOPSECRETNOTE');
+  await p.click('.modal form [type=submit]'); await p.waitForSelector('.tx'); await p.waitForTimeout(400);
+  const raw = await p.evaluate(() => localStorage.getItem('rupivo.data.v1'));
+  console.log('encrypted at rest:', raw.includes('"enc":true') && !raw.includes('TOPSECRETNOTE'));
+  await p.reload(); await p.waitForSelector('.lock-card input[name=pass]');
+  await p.fill('input[name=pass]', 'wrongwrong'); await p.click('.lock-card [type=submit]');
+  await p.waitForSelector('.form-error:not([hidden])'); console.log('wrong pass msg:', await p.textContent('.form-error'));
+  await p.fill('input[name=pass]', 'secret123'); await p.click('.lock-card [type=submit]');
+  await p.waitForSelector('.hero-v'); console.log('unlocked balance:', await p.textContent('.hero-v'));
+  await p.goto('http://localhost:8765/terms.html'); console.log('terms title:', await p.title());
+  console.log(errs.length ? errs : 'no JS errors'); await b.close();
+})();

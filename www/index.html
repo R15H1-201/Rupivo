@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rupivo</title>
+  <meta name="description" content="Rupivo — a private, offline money tracker for cash, UPI and people.">
+  <meta name="theme-color" content="#f4f6fb">
+  <!-- Privacy: the page may load nothing from, and send nothing to, any other server. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- First-run / lock screen (filled by js/lock.js) -->
+  <div id="lock" class="lock" hidden></div>
+
+  <div id="app" class="app" hidden>
+    <aside class="sidebar" aria-label="Main">
+      <a class="brand" href="#/dashboard"><img src="assets/logo.svg" alt="" width="36" height="36"> Rupivo</a>
+      <nav id="sidebar-nav" aria-label="Sections"></nav>
+      <div class="side-foot muted"><a href="terms.html">Terms &amp; Privacy</a><br>v1.0.0 · Data stays on this device</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <a class="brand" href="#/dashboard"><img src="assets/logo.svg" alt="" width="32" height="32"> Rupivo</a>
+        <span class="grow"></span>
+        <button id="lock-now" class="icon-btn" data-action="lock-now" aria-label="Lock app" title="Lock app" hidden></button>
+        <button class="icon-btn" data-action="toggle-theme" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+        <button id="add-top" class="btn primary sm" data-action="fab">+ New</button>
+      </header>
+      <div id="view" class="view" aria-live="polite"></div>
+    </main>
+
+    <nav id="bottom-nav" class="bottomnav" aria-label="Sections"></nav>
+
+    <div id="fab-menu" class="fab-menu" hidden></div>
+    <button id="fab" class="fab" data-action="fab" aria-label="Add transaction" aria-expanded="false"></button>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-root"></div>
+
+  <!-- Load order matters: each file only uses the ones above it. app.js must be last. -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/crypto.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/sms.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/forms.js"></script>
+  <script src="js/view-dashboard.js"></script>
+  <script src="js/view-accounts.js"></script>
+  <script src="js/view-people.js"></script>
+  <script src="js/view-reports.js"></script>
+  <script src="js/view-settings.js"></script>
+  <script src="js/lock.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms &amp; Privacy · Rupivo</title>
+  <meta name="theme-color" content="#f4f6fb">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="doc">
+  <header>
+    <img src="assets/logo.svg" alt="Rupivo logo">
+    <div><h1>Terms &amp; Privacy Policy</h1><p class="muted">Rupivo · Last updated 25 October 2026</p></div>
+  </header>
+  <nav aria-label="Contents">
+    <a href="#summary">Summary</a><a href="#data">Your data</a><a href="#encryption">Encryption</a><a href="#sms">Bank SMS</a><a href="#sharing">Sharing</a><a href="#terms">Terms of use</a><a href="#contact">Contact</a>
+    <a href="index.html">&larr; Back to app</a>
+  </nav>
+
+  <h2 id="summary">Summary</h2>
+  <div class="callout">
+    <b>Your financial data never leaves your device.</b> Rupivo has no accounts, no servers, no analytics and no advertising. The developer cannot see, receive or recover your data.
+  </div>
+
+  <h2 id="data">1. What data Rupivo stores</h2>
+  <p>Only what you enter or choose to import, kept in the app’s local storage on your device:</p>
+  <ul>
+    <li>Accounts (name, type, balance), people (name, optional phone and note) and transactions (amount, date, category, note).</li>
+    <li>App preferences (theme, currency).</li>
+  </ul>
+  <p>Rupivo does not collect your name, email, location, contacts, device identifiers or usage statistics. The app’s pages are configured so they cannot connect to any server.</p>
+
+  <h2 id="encryption">2. Encryption</h2>
+  <ul>
+    <li>If you set a passcode, your data is encrypted on the device using <b>AES-256-GCM</b>, with a key derived from your passcode by PBKDF2-SHA-256 (310,000 rounds, random salt). The data file stored on the device contains only the salt, nonce and ciphertext.</li>
+    <li>The passcode is never stored or transmitted. <b>If you forget it, your data cannot be recovered</b> — not by you and not by the developer. Keep a backup.</li>
+    <li>If you skip the passcode, your data is stored on the device without encryption (protected only by your phone’s own security).</li>
+    <li>“Encrypted backup” creates a JSON file protected by a separate passphrase you choose. A plain “Backup (JSON)” is readable by anyone who obtains the file.</li>
+  </ul>
+
+  <h2 id="sms">3. Reading bank SMS (optional, Android app only)</h2>
+  <p>This feature is <b>off by default</b> and works only if you turn it on and grant Android’s SMS permission.</p>
+  <ul>
+    <li><b>What it does:</b> it reads text messages on your phone and turns bank/UPI debit and credit alerts into transactions in Rupivo.</li>
+    <li><b>Bank messages only:</b> Android offers no permission limited to bank SMS, so granting access technically lets the app read the inbox. Rupivo therefore filters <i>on your device</i>: it looks only at messages from bank-style sender IDs (such as <code>VM-HDFCBK</code>) and ignores everything else — personal chats, OTPs and promotional text are discarded without being read further or saved.</li>
+    <li><b>What is saved:</b> only the amount, date, category, a short note (e.g. the merchant) and a reference used to avoid duplicates. <b>The original SMS text is not saved.</b></li>
+    <li><b>Where it goes:</b> nowhere. Processing happens entirely on your phone. No SMS content is uploaded to the developer or any third party.</li>
+    <li><b>Your control:</b> turn it off in Settings → Bank SMS auto-import, or revoke the permission in Android settings, at any time. Imported transactions can be edited or deleted like any other.</li>
+    <li>Automatic parsing can be wrong. Please review imported transactions.</li>
+  </ul>
+
+  <h2 id="sharing">4. Sharing</h2>
+  <p>Rupivo does not sell, share or transmit your data. The only way data leaves your device is when <b>you</b> export a file (JSON backup or CSV) and send it somewhere yourself. Exports can be shared through your device’s share sheet; what you do with them is your responsibility.</p>
+
+  <h2 id="control">5. Your control</h2>
+  <ul>
+    <li><b>Export:</b> JSON backup, encrypted backup and CSV in Settings.</li>
+    <li><b>Delete:</b> “Reset all data” in Settings erases everything and the passcode from the device. Uninstalling the app or clearing its storage also deletes it.</li>
+    <li><b>Backups are yours to keep.</b> Data lives only on this device, so losing or resetting the device without a backup means losing the data.</li>
+  </ul>
+
+  <h2 id="terms">6. Terms of use</h2>
+  <ul>
+    <li>Rupivo is a personal record-keeping tool. It is <b>not</b> a bank, payment app or financial adviser, and does not move real money. Balances shown are calculated from what you (or imported SMS) record.</li>
+    <li>You are responsible for the accuracy of your entries and for keeping backups and your passcode safe.</li>
+    <li>The app is provided <b>“as is”</b>, without warranties of any kind. To the maximum extent permitted by law, the developer is not liable for losses arising from use of the app, including data loss, calculation or SMS-parsing errors.</li>
+    <li>Bank names and app names shown in the account lists (for example Bank of Baroda, Kotak, GPay, PhonePe) are trademarks of their respective owners, used only to label your own accounts. Rupivo is not affiliated with or endorsed by them.</li>
+    <li>Don’t use Rupivo for unlawful purposes. We may update these terms; the date above shows the latest version.</li>
+  </ul>
+
+  <h2 id="children">7. Children</h2>
+  <p>Rupivo collects no personal information from anyone, including children.</p>
+
+  <h2 id="contact">8. Contact</h2>
+  <p>Questions about this policy: <b>[add your support email here]</b></p>
+  <p class="muted small">This document is a plain-language template provided with the app. Have it reviewed by a legal professional before publishing the app publicly.</p>
+</div>
+<script>
+  // follow the saved theme from the app
+  try { var p = JSON.parse(localStorage.getItem('rupivo.prefs.v1') || '{}'); var d = p.theme === 'dark' || ((p.theme || 'system') === 'system' && matchMedia('(prefers-color-scheme: dark)').matches); document.documentElement.dataset.theme = d ? 'dark' : 'light'; } catch (e) {}
+</script>
+</body>
+</html>
